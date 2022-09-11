@@ -56,24 +56,6 @@
 
             <h5 class="card-title text-center mb-5 fw-light fs-5">Login</h5>
 
-            <!-- @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
-            @if (session('cadastro'))
-                <div class="alert alert-{{session('cadastro')['tipo_alerta']}}">
-                    <ul>
-                        <li>{{ session('cadastro')['mensagem'] }}</li>
-                    </ul>
-                </div>
-            @endif -->
-
             <?php
                 //dd($cadastroRealizado);
 
@@ -86,6 +68,14 @@
 					if(isset($_SESSION['login_invalido'])){ 
 						print_r('<div class="alert alert-danger" style="display:inline-block;">');
 						print_r($_SESSION['login_invalido']);
+						print_r('</div><br>');
+					}
+				?>
+
+				<?php 
+					if(isset($_SESSION['new_user_ok'])){ 
+						print_r('<div class="alert alert-success" style="display:inline-block;">');
+						print_r('Seus dados foram gravados com sucesso! Entre com seu CNPJ e Senha. ');
 						print_r('</div><br>');
 					}
 				?>
@@ -104,7 +94,7 @@
               <div class="d-grid">
 
                 <button class="btn btn-primary btn-login text-uppercase fw-bold" id="btnEntrar" type="submit">Entrar</button>
-                <a href="{{route('route.cadastrarView')}}" class="btn fw-bold">Novo Cadastro</a>
+                <a href="<?php echo base_url() ?>cadastro" class="btn fw-bold">Novo Cadastro</a>
 
               </div>
 
