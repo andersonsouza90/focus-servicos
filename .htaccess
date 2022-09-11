@@ -1,0 +1,12 @@
+##### LOCAWEB - NAO REMOVER #####
+#####AddHandler php72-script .php
+#####suPHP_ConfigPath /home/corredoresesport1/
+##### LOCAWEB - NAO REMOVER #####
+
+
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} -s [OR]
+RewriteCond %{REQUEST_FILENAME} -l [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^.*$ - [NC,L]
+RewriteRule ^(.*)$ index.php/$1 [NC,L]

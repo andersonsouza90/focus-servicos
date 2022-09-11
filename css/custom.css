@@ -1,0 +1,21 @@
+body {
+	background: #1a202c;
+}
+
+html, body {
+height: 90%;
+}
+
+.full-height {
+height: 100%;
+}
+
+#linkArquivo{
+	display: inline;
+	margin-left: 10%;
+	font-size: 15px;
+}
+
+#submit{
+	margin-top: 10px;
+}
