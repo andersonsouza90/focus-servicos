@@ -28,7 +28,7 @@
 			<?php 
 					if(isset($_SESSION['new_user_nok'])){ 
 						print_r('<div class="alert alert-danger" style="display:inline-block;">');
-						print_r('Erro ao gravar.');
+						print_r($_SESSION['new_user_nok']);
 						print_r('</div><br>');
 					}
 				?>

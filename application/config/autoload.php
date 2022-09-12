@@ -89,7 +89,7 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('url', 'form', 'file', 'download');
+$autoload['helper'] = array('url', 'form', 'file', 'download', 'date');
 
 /*
 | -------------------------------------------------------------------
@@ -133,3 +133,6 @@ $autoload['language'] = array();
 |	$autoload['model'] = array('first_model' => 'first');
 */
 $autoload['model'] = array();
+
+//seta timezone
+$autoload['time_zone'] = date_default_timezone_set('America/Sao_Paulo');

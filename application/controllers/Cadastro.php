@@ -82,10 +82,12 @@ class Cadastro extends CI_Controller {
 		//print_r($this->form_validation->run()); die;
 
 		if ($this->form_validation->run() == FALSE){
+
 			$this->load->view('cadastro/cadastro_form');
+
 		}else{
 
-			$dados = array(
+			$dadosUsuario = array(
 	            "razao_social"=> $this->input->post("razaoSocial"),
 	            "fantasia"      => $this->input->post("fantasia"),
 	            "endereco"     => $this->input->post("enderecoCompleto"),	            
@@ -97,20 +99,50 @@ class Cadastro extends CI_Controller {
 	        );    
 
 			$this->load->model("FormularioModel");
-			$retorno = $this->FormularioModel->salvar($dados);
 
-			if($retorno){
+			$validaCnpj = $this->FormularioModel->findUserByCnpj($this->input->post("cnpj"));
 
-            	//$dadosUsuario = $this->Formulario_model->getParticipante($retorno);
-
-	            $this->session->set_flashdata("new_user_ok", "Dados gravados.");
-	            
-	            redirect('/');
-
-	        }else{
-	            $this->session->set_flashdata("new_user_nok", "Erro ao gravar.");	        
+			if($validaCnpj > 0){
+				$this->session->set_flashdata("new_user_nok", "O CNPJ (".$this->input->post("cnpj").") já está cadastrado!");	        
 				$this->load->view('cadastro/cadastro_form');
-	        }
+
+			}else{
+
+				$retornoUser = $this->FormularioModel->salvar($dadosUsuario);		
+			
+				if($retornoUser){
+					$this->load->model("AdesaoModel");
+
+					$dadosAdesao = array(
+						"id_usuario"=> $retornoUser,
+						"id_plano" => "1",
+						"dt_termino" => date('Y/m/d', strtotime('+7 day', time())) //1 semana de teste 
+					);
+					$retornoAdesao = $this->AdesaoModel->salvar($dadosAdesao);
+
+					if($retornoAdesao){
+
+						//$dadosUsuario = $this->Formulario_model->getParticipante($retorno);
+		
+						$this->session->set_flashdata("new_user_ok", "Dados gravados.");
+						
+						redirect('/');
+		
+					}else{
+						$this->session->set_flashdata("new_user_nok", "Erro ao gravar Adesão.");	        
+						$this->load->view('cadastro/cadastro_form');
+						
+					}
+
+				}else{
+
+					$this->session->set_flashdata("new_user_nok", "Erro ao gravar Dados.");	        
+					$this->load->view('cadastro/cadastro_form');
+					
+				}
+
+			}
+			
 
 		}
 	}
