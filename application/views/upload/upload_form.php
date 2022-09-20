@@ -19,6 +19,27 @@
 			print_r($_SESSION['valida_file']);
 			print_r('</div><br>');
 		}
+
+		if(isset($_SESSION['valida_colunas'])){
+			//var_dump($_SESSION['valida_colunas']);
+			print_r('<div class="alert alert-danger alert-dismissible fade show" role="alert">');
+			foreach ($_SESSION['valida_colunas']["msg"] as $key => $value) {
+				print_r($value); print_r("<br>");
+			}
+			print_r('<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button></div><br>');
+		}
+
+		if(isset($_SESSION['valida_dados'])){
+			print_r('<div class="alert alert-danger alert-dismissible fade show" role="alert">');
+			foreach ($_SESSION['valida_dados']["msg"] as $key => $value) {
+				print_r($value); print_r("<br>");
+			}
+			print_r('<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button></div><br>');
+		}
 	?>
 	
 		<form action="<?= base_url("upload/arquivo") ?>" method="post" name="upload_excel" enctype="multipart/form-data">
